@@ -18,7 +18,7 @@ namespace Sentient.Test.Memory.Knowledge
             {
                 Definition = "test",
                 EmotionalCharge = "strong",
-                Family = "beautiful",
+                Family = "TestFamily",
                 Name = "TestNoun",
             };
 
@@ -29,18 +29,18 @@ namespace Sentient.Test.Memory.Knowledge
                 Degree = "Inferior",
                 Masculin = false,
                 Singular = false,
-                Definition = "test2",
-                EmotionalCharge = "strong2",
-                Family = "beautiful2",
-                Name = "Testadjective",
+                Definition = "TestDefinition",
+                EmotionalCharge = "strong",
+                Family = "beautiful",
+                Name = "TestAdjective",
             };
             RepositoryManager.Language.AddWord(adjective);
 
             var verb = new Verb()
             {
-                Definition = "test",
+                Definition = "testVerb",
                 EmotionalCharge = "strong",
-                Family = "beautiful",
+                Family = "TestFamily",
                 Name = "TestVerb",
                 Masculin = true,
                 Participle = "past",
@@ -61,9 +61,9 @@ namespace Sentient.Test.Memory.Knowledge
         {
             var noun = new Noun()
             {
-                Definition = "testinha",
+                Definition = "testNoun",
                 EmotionalCharge = "strong",
-                Family = "beautiful",
+                Family = "TestFamily",
                 Name = "TestNoun",
             };
 
