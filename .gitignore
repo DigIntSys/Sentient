@@ -1,0 +1,33 @@
+
+# Database
+
+
+# Local shizzle
+/.vs/Sentient/v14
+
+*.TMP
+*.user
+
+# bin & obj
+/*/bin/
+/*/obj/
+/Tests/*/bin/
+/Tests/*/obj/
+
+# Packages
+/packages
+#Documentation
+/Documentation
+
+*.vpp~*
+*.vux
+
+#dlls
+/Sentient/Nodes
+
+
+#User files
+/.vs
+
+
+

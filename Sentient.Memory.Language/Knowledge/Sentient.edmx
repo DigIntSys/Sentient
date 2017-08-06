@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SentientModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Adjective">
+          <Key>
+            <PropertyRef Name="AdjectiveID" />
+          </Key>
+          <Property Name="AdjectiveID" Type="bigint" Nullable="false" />
+          <Property Name="Degree" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Noun">
+          <Key>
+            <PropertyRef Name="NounID" />
+          </Key>
+          <Property Name="NounID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Verb">
+          <Key>
+            <PropertyRef Name="VerbID" />
+          </Key>
+          <Property Name="VerbID" Type="bigint" Nullable="false" />
+          <Property Name="Participle" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Word">
+          <Key>
+            <PropertyRef Name="WordID" />
+          </Key>
+          <Property Name="WordID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Definition" Type="nvarchar" MaxLength="500" />
+          <Property Name="EmotionalCharge" Type="nvarchar" MaxLength="50" />
+          <Property Name="Family" Type="nvarchar" MaxLength="50" />
+          <Property Name="Masculin" Type="bit" />
+          <Property Name="Singular" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Adjective_Word">
+          <End Role="Word" Type="Self.Word" Multiplicity="1" />
+          <End Role="Adjective" Type="Self.Adjective" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Word">
+              <PropertyRef Name="WordID" />
+            </Principal>
+            <Dependent Role="Adjective">
+              <PropertyRef Name="AdjectiveID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Noun_Word">
+          <End Role="Word" Type="Self.Word" Multiplicity="1" />
+          <End Role="Noun" Type="Self.Noun" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Word">
+              <PropertyRef Name="WordID" />
+            </Principal>
+            <Dependent Role="Noun">
+              <PropertyRef Name="NounID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Verb_Word">
+          <End Role="Word" Type="Self.Word" Multiplicity="1" />
+          <End Role="Verb" Type="Self.Verb" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Word">
+              <PropertyRef Name="WordID" />
+            </Principal>
+            <Dependent Role="Verb">
+              <PropertyRef Name="VerbID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SentientModelStoreContainer">
+          <EntitySet Name="Adjective" EntityType="Self.Adjective" Schema="language" store:Type="Tables" />
+          <EntitySet Name="Noun" EntityType="Self.Noun" Schema="language" store:Type="Tables" />
+          <EntitySet Name="Verb" EntityType="Self.Verb" Schema="language" store:Type="Tables" />
+          <EntitySet Name="Word" EntityType="Self.Word" Schema="language" store:Type="Tables" />
+          <AssociationSet Name="FK_Adjective_Word" Association="Self.FK_Adjective_Word">
+            <End Role="Word" EntitySet="Word" />
+            <End Role="Adjective" EntitySet="Adjective" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Noun_Word" Association="Self.FK_Noun_Word">
+            <End Role="Word" EntitySet="Word" />
+            <End Role="Noun" EntitySet="Noun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Verb_Word" Association="Self.FK_Verb_Word">
+            <End Role="Word" EntitySet="Word" />
+            <End Role="Verb" EntitySet="Verb" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SentientModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Adjective" BaseType="SentientModel.Word">
+          <Property Name="Degree" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Noun" BaseType="SentientModel.Word">
+        </EntityType>
+        <EntityType Name="Verb" BaseType="SentientModel.Word">
+          <Property Name="Participle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Word" Abstract="true">
+          <Key>
+            <PropertyRef Name="WordID" />
+          </Key>
+          <Property Name="WordID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Definition" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EmotionalCharge" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Family" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Masculin" Type="Boolean" />
+          <Property Name="Singular" Type="Boolean" />
+        </EntityType>
+        <EntityContainer Name="SentientEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Words" EntityType="Self.Word" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SentientModelStoreContainer" CdmEntityContainer="SentientEntities">
+          <EntitySetMapping Name="Words">
+            <EntityTypeMapping TypeName="IsTypeOf(SentientModel.Word)">
+              <MappingFragment StoreEntitySet="Word">
+                <ScalarProperty Name="WordID" ColumnName="WordID" />
+                <ScalarProperty Name="Singular" ColumnName="Singular" />
+                <ScalarProperty Name="Masculin" ColumnName="Masculin" />
+                <ScalarProperty Name="Family" ColumnName="Family" />
+                <ScalarProperty Name="EmotionalCharge" ColumnName="EmotionalCharge" />
+                <ScalarProperty Name="Definition" ColumnName="Definition" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(SentientModel.Adjective)">
+              <MappingFragment StoreEntitySet="Adjective">
+                <ScalarProperty Name="WordID" ColumnName="AdjectiveID" />
+                <ScalarProperty Name="Degree" ColumnName="Degree" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(SentientModel.Verb)">
+              <MappingFragment StoreEntitySet="Verb">
+                <ScalarProperty Name="WordID" ColumnName="VerbID" />
+                <ScalarProperty Name="Participle" ColumnName="Participle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(SentientModel.Noun)">
+              <MappingFragment StoreEntitySet="Noun" >
+                <ScalarProperty Name="WordID" ColumnName="NounID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

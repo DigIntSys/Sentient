@@ -1,0 +1,5 @@
+Sentient.Perception.Console
+Sentient.Communication.Console
+Sentient.Memory.Language
+Sentient.Logic.Language
+Sentient.Information.Language

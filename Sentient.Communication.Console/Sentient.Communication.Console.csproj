@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E3D44B24-1183-4233-8B72-23D5CDC46C4E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Sentient.Communication.Console</RootNamespace>
+    <AssemblyName>Sentient.Communication.Console</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Processor.cs" />
+    <Compile Include="External\Transmitter.cs" />
+    <Compile Include="Internal\Receiver.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sentient.Pool\Sentient.Pool.csproj">
+      <Project>{21f8ddc8-1bed-445a-a173-04fdcd6f3a84}</Project>
+      <Name>Sentient.Pool</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sentient.Resources\Sentient.Resources.csproj">
+      <Project>{de095037-5913-4702-9a0b-675bf0877452}</Project>
+      <Name>Sentient.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sentient.Signals\Sentient.Signals.csproj">
+      <Project>{4ace6dcc-1c85-4886-9e8a-581cba2d61b6}</Project>
+      <Name>Sentient.Signals</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if not exist "$(SolutionDir)$(SolutionName)\Nodes" mkdir "$(SolutionDir)$(SolutionName)\Nodes"
+xcopy /Y /S "$(ProjectDir)$(OutDir)$(TargetFileName)" "$(SolutionDir)$(SolutionName)\Nodes"
+xcopy /Y /S "$(ProjectDir)$(OutDir)$(TargetFileName)" "$(SolutionDir)$(SolutionName)\$(outDir)"
+echo *** POST-BUILD for $(ProjectName) COMPLETED ***</PostBuildEvent>
+  </PropertyGroup>
+</Project>
