@@ -58,6 +58,22 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Sentient.Communication.Console\Sentient.Communication.Console.csproj">
+      <Project>{e3d44b24-1183-4233-8b72-23d5cdc46c4e}</Project>
+      <Name>Sentient.Communication.Console</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Sentient.Information.Language\Sentient.Information.Language.csproj">
+      <Project>{06bbdb0c-7041-4adb-bf16-3f098c669d00}</Project>
+      <Name>Sentient.Information.Language</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Sentient.Logic.Language\Sentient.Logic.Language.csproj">
+      <Project>{86451a61-f3e5-4c5e-a647-cb628b6e27c9}</Project>
+      <Name>Sentient.Logic.Language</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Sentient.Memory.Language\Sentient.Memory.Language.csproj">
+      <Project>{1b25d399-b6b5-4c9b-904c-aa936a7b2078}</Project>
+      <Name>Sentient.Memory.Language</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Sentient.Perception.Console\Sentient.Perception.Console.csproj">
       <Project>{358c8e8c-9e6f-4289-b867-554c237f111c}</Project>
       <Name>Sentient.Perception.Console</Name>
@@ -96,15 +112,8 @@
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>IF EXIST "$(SolutionDir)$(SolutionName)\Nodes\*.dll" (
-xcopy "$(SolutionDir)$(SolutionName)\Nodes\*.dll" "$(TargetDir)" /Y /S
-echo *** PRE-BUILD for $(ProjectName) COMPLETED *** 
-) ELSE (
-echo *** PRE-BUILD for $(ProjectName) FAILED - Possible reasons: 
-echo Rebuild does not work. Use clean/build instead.
-echo Make sure your build dependencies are set properly. Sentient should be the last assembly to be built. *** 
-EXIT 1
-)</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -7,7 +7,8 @@ using Sentient.Signals.Enums;
 using Sentient.Signals.Impulses;
 using Sentient.Signals.Impulses.Language;
 using System.Linq;
-
+using System.Diagnostics;
+using System;
 
 namespace Sentient.Memory.Language
 {
@@ -29,22 +30,30 @@ namespace Sentient.Memory.Language
                     if (impulse is Data)
                     {
                         var query = impulse as Data;
-
-                        Entity.Word dbWord = RepositoryManager.Language.GetWordByName(query.Content).FirstOrDefault();
+                        Entity.Word dbWord = null;
+                        try
+                        {
+                            dbWord = RepositoryManager.Language.GetWordByName(query.Content).FirstOrDefault();
+                        }
+                        catch (Exception ex)
+                        {
+                            Trace.WriteLine(string.Format($"{Resources.Constants.Trace.Date},{this.ToString()};{Resources.Constants.Trace.GetWord};{NodeStatus.Exception};{ex.Message}"));
+                        }
                         if (dbWord != null)
-                        {
-                            // I know what it means.
-                            response = Map.EntityToSignal(dbWord);
-                            response.Signal = SignalType.Response;
-                            response.Outcome = Outcome.Success;
-                        }
-                        else
-                        {
-                            // Don't know what it means.
-                            response = new Data(impulse as Data);
-                            response.Signal = SignalType.Response;
-                            response.Outcome = Outcome.Failure;
-                        }
+                            {
+                                // I know what it means.
+                                response = Map.EntityToSignal(dbWord);
+                                response.Signal = SignalType.Response;
+                                response.Outcome = Outcome.Success;
+                            }
+                            else
+                            {
+                                // Don't know what it means.
+                                response = new Data(impulse as Data);
+                                response.Signal = SignalType.Response;
+                                response.Outcome = Outcome.Failure;
+                            }
+
                     }
                     break;
                 case SignalType.Request:
@@ -60,15 +69,15 @@ namespace Sentient.Memory.Language
 
                             if (dbWord == null)
                             {
-                                System.Diagnostics.Trace.WriteLine($"{Resources.Constants.Trace.Date};{this.ToString()};{Resources.Constants.Trace.AddWord};{Outcome.Failure.ToString()};{Resources.Constants.Trace.NoWordType}");
+                                Trace.WriteLine($"{Resources.Constants.Trace.Date};{this.ToString()};{Resources.Constants.Trace.AddWord};{Outcome.Failure.ToString()};{Resources.Constants.Trace.NoWordType}");
                             }
                             else
                             {
                                 int wordId = RepositoryManager.Language.AddWord(dbWord);
                                 if (wordId == 0)
-                                    System.Diagnostics.Trace.WriteLine(string.Format("{0};{1};{2};{3};{4}", Resources.Constants.Trace.Date, this.ToString(), Resources.Constants.Trace.AddWord, Outcome.Failure.ToString(), wordId));
+                                    Trace.WriteLine(string.Format("{0};{1};{2};{3};{4}", Resources.Constants.Trace.Date, this.ToString(), Resources.Constants.Trace.AddWord, Outcome.Failure.ToString(), wordId));
                                 else
-                                    System.Diagnostics.Trace.WriteLine(string.Format("{0};{1};{2};{3};{4}", Resources.Constants.Trace.Date, this.ToString(), Resources.Constants.Trace.AddWord, Outcome.Success.ToString(), wordId));
+                                    Trace.WriteLine(string.Format("{0};{1};{2};{3};{4}", Resources.Constants.Trace.Date, this.ToString(), Resources.Constants.Trace.AddWord, Outcome.Success.ToString(), wordId));
                             }
                         }
                     }

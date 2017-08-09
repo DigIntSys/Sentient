@@ -73,9 +73,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if not exist "$(SolutionDir)$(SolutionName)\Nodes" mkdir "$(SolutionDir)$(SolutionName)\Nodes"
-xcopy /Y /S "$(ProjectDir)$(OutDir)$(TargetFileName)" "$(SolutionDir)$(SolutionName)\Nodes"
-xcopy /Y /S "$(ProjectDir)$(OutDir)$(TargetFileName)" "$(SolutionDir)$(SolutionName)\$(outDir)"
-echo *** POST-BUILD for $(ProjectName) COMPLETED ***</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

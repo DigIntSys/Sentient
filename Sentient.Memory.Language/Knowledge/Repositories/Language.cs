@@ -5,7 +5,6 @@ namespace Sentient.Memory.Language.Knowledge.Repositories
     internal class Language : BaseRepository
     {
 
-
         public IQueryable<Word> GetWordByName(string wordName)
         {
             return Context.Set<Word>().Where(w => w.Name == wordName);

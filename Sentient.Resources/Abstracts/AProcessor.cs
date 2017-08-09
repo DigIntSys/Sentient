@@ -29,12 +29,11 @@ namespace Sentient.Resources
                     Impulse newStimulus = DataPool.Take();
                     Process(newStimulus);
                 }
-                catch (InvalidOperationException ex)
+                catch (Exception ex)
                 {
                     // exception is thrown when the IsCompleted signal is sent
                     // TODO: Find a better way to terminate the processor
                     Trace.WriteLine($"{Constants.Trace.Date};{this.ToString()};{ex}");
-                    break;
                 }
             }
 
