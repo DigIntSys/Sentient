@@ -8,7 +8,6 @@ It is in essence a plugin-based architecture whose plugins employ an input/proce
 ### Information ###
 
 * [Set up](https://github.com/DigIntSys/Sentient/wiki/Setup)
-* [Adding Dependencies](https://github.com/DigIntSys/Sentient/wiki/dependencies)
 * [Creating new nodes](https://github.com/DigIntSys/Sentient/wiki/Creating-new-nodes)
 
 ### Documentation ###
